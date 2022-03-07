@@ -1,0 +1,21 @@
+{
+  "name": "shopping-cart",
+  "version": "0.9.0",
+  "description": "A simple shopping cart lib",
+  "main": "./src/index.js",
+  "repository": "git@github.com:MilkyWeb/shopping-cart.git",
+  "author": "Sebastian Godoy",
+  "license": "MIT",
+  "private": false,
+  "type": "module",
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1"
+  },
+  "dependencies": {
+    "eventemitter3": "^4.0.7"
+  }
+}
