@@ -1,7 +1,8 @@
 class Entry {
-  constructor(item) {
+  constructor(item, emitFn) {
     this._item = item;
     this._qty = 1;
+    this._emitFn = emitFn;
 
     return new Proxy(this, {
       get(entry, field) {
@@ -23,16 +24,16 @@ class Entry {
   increaseQuantity(value = 1) {
     const newValue = this._validateInputQty(value);
 
-    this.setQuantity(this._qty + newValue);
+    this.setQuantity(this._qty + newValue, "increaseQuantity");
   }
 
   decreaseQuantity(value = 1) {
     const newValue = this._validateInputQty(value);
 
-    this.setQuantity(this._qty - newValue);
+    this.setQuantity(this._qty - newValue, "decreaseQuantity");
   }
 
-  setQuantity(value) {
+  setQuantity(value, event = null) {
     const newQty = this._validateInputQty(value);
 
     this._qty =
@@ -41,6 +42,9 @@ class Entry {
         : newQty < this.item.minQuantity
         ? this.item.minQuantity
         : newQty;
+
+    if (!event) event = "quantityChanged";
+    this._emitFn(event);
   }
 
   total() {

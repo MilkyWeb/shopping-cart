@@ -73,4 +73,37 @@ describe("Event tests", () => {
 
     expect(spy).toHaveBeenCalled();
   });
+
+  test("Test increase event", () => {
+    const item = getItem();
+    const eventHandler = {
+      handleEvent: (c) => {
+        expect(c.items.count).toBe(2);
+      },
+    };
+    const spy = jest.spyOn(eventHandler, "handleEvent");
+
+    cart.on("increaseQuantity", eventHandler.handleEvent);
+    cart.add(item);
+    cart.items["p1"].increaseQuantity();
+
+    expect(spy).toHaveBeenCalled();
+  });
+
+  test("Test decrease event", () => {
+    const item = getItem();
+    const eventHandler = {
+      handleEvent: (c) => {
+        expect(c.items.count).toBe(2);
+      },
+    };
+    const spy = jest.spyOn(eventHandler, "handleEvent");
+
+    cart.on("decreaseQuantity", eventHandler.handleEvent);
+    cart.add(item);
+    cart.items["p1"].setQuantity(3);
+    cart.items["p1"].decreaseQuantity();
+
+    expect(spy).toHaveBeenCalled();
+  });
 });

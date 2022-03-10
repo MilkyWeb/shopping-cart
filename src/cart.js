@@ -25,7 +25,7 @@ class Cart {
       entry = this.items[newItem.id];
       entry.increaseQuantity();
     } else {
-      entry = new Entry(newItem);
+      entry = new Entry(newItem, this.emit.bind(this));
       this._entries[newItem.id] = entry;
     }
 
