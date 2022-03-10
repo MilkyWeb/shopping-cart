@@ -57,4 +57,20 @@ describe("Event tests", () => {
 
     expect(spy).toHaveBeenCalled();
   });
+
+  test("Test clear event", () => {
+    const item = getItem();
+    const eventHandler = {
+      handleClear: (c) => {
+        expect(c.items.count).toBe(0);
+      },
+    };
+    const spy = jest.spyOn(eventHandler, "handleClear");
+
+    cart.on("clear", eventHandler.handleClear);
+    cart.add(item);
+    cart.clear();
+
+    expect(spy).toHaveBeenCalled();
+  });
 });

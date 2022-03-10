@@ -5,8 +5,12 @@ import EventEmiter from "./utils/events";
 
 class Cart {
   constructor() {
-    this._entries = Object.create(CartStorage);
+    this._initEntries();
     this._emitter = new EventEmiter();
+  }
+
+  _initEntries() {
+    this._entries = Object.create(CartStorage);
   }
 
   get items() {
@@ -37,6 +41,11 @@ class Cart {
 
     this.emit("removeItem");
     return entry.item;
+  }
+
+  clear() {
+    this._initEntries();
+    this.emit("clear");
   }
 
   subTotal() {

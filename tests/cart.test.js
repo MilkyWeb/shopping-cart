@@ -116,3 +116,15 @@ test("Cart delete item", () => {
   expect(cart.subTotal()).toBe(0);
   expect(deleted).toBe(item);
 });
+
+test("Cart clear items", () => {
+  const cart = new Cart();
+
+  const item = new Item(itemId, name, price);
+  cart.add(item);
+
+  cart.clear();
+  expect(cart.items.length).toBe(0);
+  expect(cart.items.count).toBe(0);
+  expect(cart.subTotal()).toBe(0);
+});
