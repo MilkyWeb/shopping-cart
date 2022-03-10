@@ -1,10 +1,12 @@
 import Item from "./item";
 import Entry from "./entry";
 import CartStorage from "./storage";
+import EventEmiter from "./utils/events";
 
 class Cart {
   constructor() {
     this._entries = Object.create(CartStorage);
+    this._emitter = new EventEmiter();
   }
 
   get items() {
@@ -14,8 +16,16 @@ class Cart {
   add(newItem) {
     if (!(newItem instanceof Item)) throw new Error("Invalid Item");
 
-    const entry = new Entry(newItem);
-    this._entries[newItem.id] = entry;
+    let entry;
+    if (newItem.id in this.items) {
+      entry = this.items[newItem.id];
+      entry.increaseQuantity();
+    } else {
+      entry = new Entry(newItem);
+      this._entries[newItem.id] = entry;
+    }
+
+    this.emit("addItem");
     return entry;
   }
 
@@ -25,6 +35,7 @@ class Cart {
     const entry = this._entries[itemId];
     delete this._entries[itemId];
 
+    this.emit("removeItem");
     return entry.item;
   }
 
@@ -33,6 +44,15 @@ class Cart {
       (accum, entry) => accum + entry.total(),
       0
     );
+  }
+
+  emit(event) {
+    this._emitter.emit(event, this);
+    this._emitter.emit("change", this);
+  }
+
+  on(ev, fn) {
+    this._emitter.addListener(ev, fn);
   }
 }
 

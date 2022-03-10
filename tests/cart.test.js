@@ -8,6 +8,7 @@ test("Init cart", () => {
   const cart = new Cart();
 
   expect(cart.items.length).toBe(0);
+  expect(cart.items.count).toBe(0);
   expect(cart.subTotal()).toBe(0);
 });
 
@@ -32,6 +33,20 @@ test("Cart increase item quantity", () => {
   cart.add(item);
   cart.items[itemId].increaseQuantity();
 
+  expect(cart.items.length).toBe(1);
+  expect(cart.items.count).toBe(2);
+  expect(cart.items[itemId].quantity).toBe(2);
+  expect(cart.subTotal()).toBe(price * 2);
+});
+
+test("Cart increase item quantity with same item", () => {
+  const cart = new Cart();
+
+  const item = new Item(itemId, "Playera", price);
+  cart.add(item);
+  expect(cart.items.count).toBe(1);
+
+  cart.add(item);
   expect(cart.items.length).toBe(1);
   expect(cart.items.count).toBe(2);
   expect(cart.items[itemId].quantity).toBe(2);
