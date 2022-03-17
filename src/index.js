@@ -1,5 +1,5 @@
-import Cart from "./cart";
-import Item from "./item";
+import Cart from "./cart.js";
+import Item from "./item.js";
 
 export default Cart;
 

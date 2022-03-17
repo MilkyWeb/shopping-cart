@@ -1,7 +1,7 @@
-import Item from "./item";
-import Entry from "./entry";
-import CartStorage from "./storage";
-import EventEmiter from "./utils/events";
+import Item from "./item.js";
+import Entry from "./entry.js";
+import CartStorage from "./storage.js";
+import EventEmiter from "./utils/events.js";
 
 class Cart {
   constructor() {
