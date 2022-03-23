@@ -1,6 +1,6 @@
 {
   "name": "@milkyweb/cart",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "A simple shopping cart lib",
   "main": "./src/index.js",
   "repository": {
