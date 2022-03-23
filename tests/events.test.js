@@ -106,4 +106,24 @@ describe("Event tests", () => {
 
     expect(spy).toHaveBeenCalled();
   });
+
+  test("Test remove listener", () => {
+    const item = getItem();
+    const eventHandler = {
+      handleAddItem: (c) => {
+        expect(c.items.count).toBe(1);
+      },
+    };
+    const spy = jest.spyOn(eventHandler, "handleAddItem");
+
+    cart.on("change", eventHandler.handleAddItem);
+    cart.add(item);
+    expect(spy).toHaveBeenCalled();
+
+    cart.off("change", eventHandler.handleAddItem);
+    cart.clear();
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    // expect(spy).not.toHaveBeenCalled();
+  });
 });

@@ -63,6 +63,10 @@ class Cart {
   on(ev, fn) {
     this._emitter.addListener(ev, fn);
   }
+
+  off(ev, fn) {
+    this._emitter.removeListener(ev, fn);
+  }
 }
 
 export default Cart;
